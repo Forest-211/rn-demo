@@ -9,12 +9,18 @@ import Found from '../pages/found/Found';
 import List from '../pages/list/List';
 import Me from '../pages/me/Me';
 import BottomTabs from './ButtomTab';
+import Detail from '../pages/detail/Detail';
+import Login from '../pages/login/Login';
+import Search from '../pages/search/Search';
 
 export type RootStackParamList = {
     BottomTabs: undefined;
     List: undefined;
     Found: undefined;
     Me: undefined;
+    Login: undefined;
+    Detail: undefined;
+    Search: undefined;
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
@@ -45,6 +51,13 @@ export default class Navigator extends Component {
                         component={Me}
                         options={{ headerTitle: '我的' }}
                     />
+                    <Stack.Screen
+                        name="Login"
+                        component={Login}
+                        options={{ headerTitle: '登录' }}
+                    />
+                    <Stack.Screen name="Detail" component={Detail} />
+                    <Stack.Screen name="Search" component={Search} />
                 </Stack.Navigator>
             </NavigationContainer>
         );

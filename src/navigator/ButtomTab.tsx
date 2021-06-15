@@ -32,7 +32,6 @@ interface IProps {
 export default class BottomTabs extends Component<IProps> {
     // 获取每个页面的标题
     getHeaderTitle(route: Route): string {
-        console.log('route:', route);
         const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
 
         switch (routeName) {
@@ -42,7 +41,7 @@ export default class BottomTabs extends Component<IProps> {
                 return '列表';
             case 'Found':
                 return '发现';
-            case 'Account':
+            case 'Me':
                 return '我的';
             default:
                 return '首页';
