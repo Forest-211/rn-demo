@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-export default class Home extends Component {
-    state = {};
-    componentDidMount() {}
-
-    handleGetData() {}
-
+export default class List extends Component {
     render() {
         return (
             <View>
-                <Text>home</Text>
+                <Text>list</Text>
             </View>
         );
     }
