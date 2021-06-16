@@ -1,6 +1,8 @@
+import { viewportWidth, wp } from '../../utils/index';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 import styles from '../../assets/styles/home';
 import { RootStackNavigation } from '../../navigator/index';
 
@@ -32,11 +34,20 @@ export type recomItem = {
 
 interface IState {
     recommend: recomItem[];
+    swiper: string[];
 }
+const sideWidth = wp(90);
+const itemWidth = sideWidth + wp(2) * 2;
 
 export default class Home extends Component<IProps> {
     state: IState = {
         recommend: [],
+        swiper: [
+            '../../assets/images/swiper/swiper-01.gif',
+            '../../assets/images/swiper/swiper-02.jpeg',
+            '../../assets/images/swiper/swiper-03.jpeg',
+            '../../assets/images/swiper/swiper-04.jpeg',
+        ],
     };
     componentDidMount() {
         this.handleGetData();
@@ -56,6 +67,9 @@ export default class Home extends Component<IProps> {
         } = result.data.response;
 
         console.log(recomPlaylist.data.v_hot);
+        recomPlaylist.data.v_hot.map((item: recomItem) => {
+            item.cover = item.cover.replace('http://', 'https://');
+        });
         this.setState({
             recommend: recomPlaylist.data.v_hot,
         });
@@ -66,10 +80,17 @@ export default class Home extends Component<IProps> {
         const { navigation } = this.props;
         navigation.navigate('Search');
     }
+    onHorizontalSelectedIndexChange(index: number) {
+        /* tslint:disable: no-console */
+        console.log('horizontal change to', index);
+    }
+
+    renderItem({ item }: { item: string }) {
+        return <Image source={{ uri: item }} style={[styles.image]} />;
+    }
 
     render() {
-        const { recommend } = this.state;
-        console.log('recomPlaylist:', this.state.recommend);
+        const { recommend, swiper } = this.state;
         return (
             <View style={[styles.container]}>
                 {/* 搜索框导航 */}
@@ -79,22 +100,61 @@ export default class Home extends Component<IProps> {
                     搜索
                 </Text>
 
-                {/* 推荐 */}
-                <View style={[styles.recommend]}>
-                    <Text style={[styles.recommendTitle]}>今日为你推荐</Text>
-                </View>
-
-                {/* 数据遍历 */}
-                {recommend.map((item) => (
-                    <View key={item.content_id}>
-                        <Text>{item.title}</Text>
+                <ScrollView style={[styles.scrollView]}>
+                    {/* 推荐 */}
+                    <View style={[styles.recommend]}>
+                        <Text style={[styles.recommendTitle]}>
+                            今日为你推荐
+                        </Text>
                         <Image
-                            source={{ uri: item.cover }}
-                            // eslint-disable-next-line react-native/no-inline-styles
-                            style={{ width: 110, height: 110 }}
+                            source={{
+                                uri: 'https://qpic.y.qq.com/music_cover/DhpicvGxCZozibtVUC0Q03Oia0h9DnKUNHPdPL3oD2tqUJiaYJUv1jvlEXbPvCCy4Vql/300?n=1',
+                            }}
+                            style={[
+                                styles.swiperCover,
+                                { marginTop: 20, marginBottom: 20 },
+                            ]}
                         />
                     </View>
-                ))}
+                    <View
+                        style={[
+                            styles.image,
+                            {
+                                borderWidth: 1,
+                                width: wp(90),
+                                marginBottom: 20,
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                justifyContent: 'center',
+                            },
+                        ]}>
+                        <Carousel
+                            data={swiper}
+                            renderItem={this.renderItem}
+                            sliderWidth={viewportWidth}
+                            itemWidth={itemWidth}
+                        />
+                    </View>
+
+                    {/* 数据遍历 */}
+                    {recommend.map((item) => (
+                        <View key={item.content_id}>
+                            <Text>{item.title}</Text>
+                            {/* <Image
+                                source={{ uri: item.cover }}
+                                style={[styles.image]}
+                            /> */}
+                            <Image
+                                // source={require('../../assets/images/swiper/swiper-02.jpeg')}
+                                source={{ uri: item.cover }}
+                                style={[
+                                    styles.swiperCover,
+                                    { marginTop: 20, marginBottom: 20 },
+                                ]}
+                            />
+                        </View>
+                    ))}
+                </ScrollView>
             </View>
         );
     }

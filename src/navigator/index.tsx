@@ -39,7 +39,7 @@ export default class Navigator extends Component {
                     <Stack.Screen
                         name="List"
                         component={List}
-                        options={{ headerTitle: '分类' }}
+                        options={{ headerTitle: '榜单' }}
                     />
                     <Stack.Screen
                         name="Found"

@@ -38,7 +38,7 @@ export default class BottomTabs extends Component<IProps> {
             case 'Home':
                 return '首页';
             case 'List':
-                return '列表';
+                return '榜单';
             case 'Found':
                 return '发现';
             case 'Me':
@@ -68,7 +68,7 @@ export default class BottomTabs extends Component<IProps> {
                 <Tab.Screen
                     name="List"
                     component={List}
-                    options={{ tabBarLabel: '我听' }}
+                    options={{ tabBarLabel: '榜单' }}
                 />
                 <Tab.Screen
                     name="Found"

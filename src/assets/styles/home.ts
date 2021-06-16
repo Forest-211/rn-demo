@@ -1,3 +1,4 @@
+import { hp, wp } from '../../utils/index';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -33,6 +34,23 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#333',
         fontWeight: '300',
+    },
+
+    scrollView: {
+        width: '100%',
+        height: '100%',
+    },
+    swiperBox: {
+        width: '100%',
+        height: 120,
+    },
+    swiperCover: {
+        width: '100%',
+        height: 120,
+    },
+    image: {
+        width: wp(90),
+        height: hp(36),
     },
 });
 
