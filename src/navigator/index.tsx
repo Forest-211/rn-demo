@@ -24,7 +24,9 @@ export type RootStackParamList = {
         topId: number;
     };
     Search: undefined;
-    Play: undefined;
+    Play: {
+        id: number;
+    };
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
