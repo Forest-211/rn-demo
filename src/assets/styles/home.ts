@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     recommend: {
         width: '90%',
-        height: 180,
+        // height: 180,
         marginTop: 20,
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
     swiperCover: {
         width: '100%',
-        height: 120,
+        height: hp(40),
     },
     image: {
         width: wp(90),

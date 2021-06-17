@@ -80,6 +80,7 @@ export default class Home extends Component<IProps> {
         const { navigation } = this.props;
         navigation.navigate('Search');
     }
+
     onHorizontalSelectedIndexChange(index: number) {
         /* tslint:disable: no-console */
         console.log('horizontal change to', index);
@@ -138,7 +139,7 @@ export default class Home extends Component<IProps> {
 
                     {/* 数据遍历 */}
                     {recommend.map((item) => (
-                        <View key={item.content_id}>
+                        <View key={item.content_id} style={{}}>
                             <Text>{item.title}</Text>
                             {/* <Image
                                 source={{ uri: item.cover }}

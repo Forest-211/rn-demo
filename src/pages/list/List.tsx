@@ -1,14 +1,25 @@
 import { getTopLists } from '../../service/topLists';
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    ScrollView,
+    TouchableHighlight,
+} from 'react-native';
 import { Item } from '../../types/topLists';
 import styles from '../../assets/styles/list';
+import { RootStackNavigation } from '../../navigator/index';
 
 interface IState {
     source: Item[];
     page: number;
 }
-export default class List extends Component {
+
+interface IProps {
+    navigation: RootStackNavigation;
+}
+export default class List extends Component<IProps> {
     state: IState = {
         source: [],
         page: 1,
@@ -23,6 +34,13 @@ export default class List extends Component {
         this.setState({ source: result });
     }
 
+    // 榜单详情页
+    handleJumpDetail(topId: number) {
+        const { navigation } = this.props;
+        console.log('naigation:', navigation);
+        navigation.navigate('Detail', { topId });
+    }
+
     render() {
         const { source } = this.state;
         return (
@@ -30,25 +48,33 @@ export default class List extends Component {
                 {source.map((item) => {
                     return (
                         <View style={[styles.item]} key={item.id}>
-                            <Image
-                                style={[styles.coverImage]}
-                                source={{ uri: item.picUrl }}
-                                resizeMode="contain"
-                            />
+                            <TouchableHighlight
+                                style={[styles.coverBox]}
+                                onPress={() => this.handleJumpDetail(item.id)}>
+                                <Image
+                                    style={[styles.coverImage]}
+                                    source={{ uri: item.picUrl }}
+                                    resizeMode="contain"
+                                />
+                            </TouchableHighlight>
                             <View style={[styles.songList]}>
                                 {item.songList.map((sitem, sindex) => (
-                                    <Text
-                                        numberOfLines={1}
-                                        key={sitem.songname}
-                                        style={[
-                                            styles.song,
-                                            {
-                                                marginTop:
-                                                    sindex === 0 ? 10 : 0,
-                                            },
-                                        ]}>
-                                        {sitem.songname} -- {sitem.singername}
-                                    </Text>
+                                    <>
+                                        <Text
+                                            numberOfLines={1}
+                                            key={sitem.songname}
+                                            style={[
+                                                styles.song,
+                                                {
+                                                    marginTop:
+                                                        sindex === 0 ? 10 : 0,
+                                                },
+                                            ]}>
+                                            {sitem.songname} --{' '}
+                                            {sitem.singername}
+                                        </Text>
+                                        <Text />
+                                    </>
                                 ))}
                             </View>
                         </View>

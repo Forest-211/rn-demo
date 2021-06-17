@@ -21,8 +21,20 @@ const setyles = StyleSheet.create({
         backgroundColor: '#fff',
     },
 
+    coverBox: {
+        width: wp(30),
+        height: hp(14),
+        borderWidth: 0,
+        overflow: 'hidden',
+        marginLeft: 0,
+        padding: 0,
+        borderRadius: 0,
+    },
+
     coverImage: {
         width: wp(30),
+        height: hp(14),
+        margin: 0,
     },
 
     songList: {
