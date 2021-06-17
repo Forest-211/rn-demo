@@ -82,6 +82,7 @@ export default class Detail extends Component<IProps> {
             isRefresh: false,
         });
     }
+
     // 播放当前选择的歌单
     handleClickSong(id: number) {
         console.log('id:', id);
@@ -111,6 +112,7 @@ export default class Detail extends Component<IProps> {
             </TouchableWithoutFeedback>
         );
     }
+
     render() {
         const {
             musichallTitle,
@@ -139,33 +141,7 @@ export default class Detail extends Component<IProps> {
                     </View>
                 </View>
                 <View style={[styles.songList]}>
-                    {/* 便利歌单 */}
-                    {/* {song.map((item: Song, index: number) => (
-                            <TouchableWithoutFeedback
-                                onPress={() =>
-                                    this.handleClickSong(item.songId)
-                                }
-                                key={item.albumMid}>
-                                <View style={[styles.songItem]}>
-                                    <View
-                                        style={[
-                                            styles.songCoverBox,
-                                            { marginTop: index === 0 ? 10 : 0 },
-                                        ]}>
-                                        <Image
-                                            defaultSource={require('../../assets/images/1.jpeg')}
-                                            style={[styles.songCover]}
-                                            source={{ uri: item.cover }}
-                                        />
-                                    </View>
-                                    <View style={[styles.songerDetail]}>
-                                        <Text numberOfLines={1}>
-                                            {item.title}---{item.singerName}
-                                        </Text>
-                                    </View>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        ))} */}
+                    {/* 遍历歌单 */}
                     <FlatList
                         data={song}
                         renderItem={this.renderItem}

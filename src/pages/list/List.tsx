@@ -59,7 +59,7 @@ export default class List extends Component<IProps> {
                             </TouchableHighlight>
                             <View style={[styles.songList]}>
                                 {item.songList.map((sitem, sindex) => (
-                                    <>
+                                    <View key={sitem.songname}>
                                         <Text
                                             numberOfLines={1}
                                             key={sitem.songname}
@@ -74,7 +74,7 @@ export default class List extends Component<IProps> {
                                             {sitem.singername}
                                         </Text>
                                         <Text />
-                                    </>
+                                    </View>
                                 ))}
                             </View>
                         </View>

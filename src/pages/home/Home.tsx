@@ -1,10 +1,21 @@
-import { viewportWidth, wp } from '../../utils/index';
+import { formatNumber, hp, replaceAgreement, wp } from '../../utils/index';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    ScrollView,
+    Button,
+    Linking,
+    Alert,
+    // TouchableHighlight,
+} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import styles from '../../assets/styles/home';
 import { RootStackNavigation } from '../../navigator/index';
+import { Banner } from '../../types/album';
+import { getDigitalAlbumLists } from '../../service/album';
 
 interface IProps {
     navigation: RootStackNavigation;
@@ -35,6 +46,7 @@ export type recomItem = {
 interface IState {
     recommend: recomItem[];
     swiper: string[];
+    banner: Banner[];
 }
 const sideWidth = wp(90);
 const itemWidth = sideWidth + wp(2) * 2;
@@ -42,15 +54,17 @@ const itemWidth = sideWidth + wp(2) * 2;
 export default class Home extends Component<IProps> {
     state: IState = {
         recommend: [],
-        swiper: [
-            '../../assets/images/swiper/swiper-01.gif',
-            '../../assets/images/swiper/swiper-02.jpeg',
-            '../../assets/images/swiper/swiper-03.jpeg',
-            '../../assets/images/swiper/swiper-04.jpeg',
-        ],
+        swiper: [],
+        banner: [],
     };
     componentDidMount() {
         this.handleGetData();
+        this.handleGetBanner();
+    }
+
+    async handleGetBanner() {
+        const { banner, swiper } = await getDigitalAlbumLists();
+        this.setState({ banner, swiper });
     }
 
     // 获取数据
@@ -66,10 +80,11 @@ export default class Home extends Component<IProps> {
             // focus,
         } = result.data.response;
 
-        console.log(recomPlaylist.data.v_hot);
+        console.log(recomPlaylist);
         recomPlaylist.data.v_hot.map((item: recomItem) => {
-            item.cover = item.cover.replace('http://', 'https://');
+            item.cover = replaceAgreement(item.cover);
         });
+
         this.setState({
             recommend: recomPlaylist.data.v_hot,
         });
@@ -87,7 +102,23 @@ export default class Home extends Component<IProps> {
     }
 
     renderItem({ item }: { item: string }) {
-        return <Image source={{ uri: item }} style={[styles.image]} />;
+        return (
+            <Image
+                source={{ uri: item }}
+                style={{
+                    height: hp(18),
+                    width: wp(94),
+                }}
+                resizeMode="contain"
+            />
+        );
+    }
+
+    handleClickJmupDetail(url: string) {
+        if (!url) {
+            return Alert.alert('地址为空！');
+        }
+        Linking.openURL(url);
     }
 
     render() {
@@ -102,6 +133,25 @@ export default class Home extends Component<IProps> {
                 </Text>
 
                 <ScrollView style={[styles.scrollView]}>
+                    {/* 轮播图 */}
+                    <View
+                        style={{
+                            width: wp(94),
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                        }}>
+                        <Carousel
+                            loop
+                            autoplay
+                            data={swiper}
+                            renderItem={this.renderItem}
+                            sliderWidth={itemWidth}
+                            itemWidth={itemWidth}
+                            layout={'tinder'}
+                            layoutCardOffset={9}
+                        />
+                    </View>
+
                     {/* 推荐 */}
                     <View style={[styles.recommend]}>
                         <Text style={[styles.recommendTitle]}>
@@ -117,42 +167,41 @@ export default class Home extends Component<IProps> {
                             ]}
                         />
                     </View>
-                    <View
-                        style={[
-                            styles.image,
-                            {
-                                borderWidth: 1,
-                                width: wp(90),
-                                marginBottom: 20,
-                                marginLeft: 'auto',
-                                marginRight: 'auto',
-                                justifyContent: 'center',
-                            },
-                        ]}>
-                        <Carousel
-                            data={swiper}
-                            renderItem={this.renderItem}
-                            sliderWidth={viewportWidth}
-                            itemWidth={itemWidth}
-                        />
-                    </View>
 
                     {/* 数据遍历 */}
                     {recommend.map((item) => (
-                        <View key={item.content_id} style={{}}>
-                            <Text>{item.title}</Text>
-                            {/* <Image
-                                source={{ uri: item.cover }}
-                                style={[styles.image]}
-                            /> */}
-                            <Image
-                                // source={require('../../assets/images/swiper/swiper-02.jpeg')}
-                                source={{ uri: item.cover }}
-                                style={[
-                                    styles.swiperCover,
-                                    { marginTop: 20, marginBottom: 20 },
-                                ]}
-                            />
+                        <View
+                            key={item.content_id}
+                            style={[styles.center, styles.data]}>
+                            <View style={[styles.dataImageBox]}>
+                                <Image
+                                    source={{ uri: item.cover }}
+                                    style={[
+                                        styles.swiperCover,
+                                        styles.dataImage,
+                                    ]}
+                                />
+                            </View>
+                            <Text style={{ fontSize: 18, marginLeft: 14 }}>
+                                {item.title}
+                            </Text>
+                            <View
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                }}>
+                                <Text style={{ fontSize: 16, marginLeft: 14 }}>
+                                    播放量：{formatNumber(item.listen_num)}
+                                </Text>
+                                <Button
+                                    title="详情"
+                                    onPress={() =>
+                                        this.handleClickJmupDetail(
+                                            item.jump_url,
+                                        )
+                                    }
+                                />
+                            </View>
                         </View>
                     ))}
                 </ScrollView>

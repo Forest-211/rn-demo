@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
     },
     recommend: {
-        width: '90%',
+        width: '94%',
         // height: 180,
         marginTop: 20,
         marginLeft: 'auto',
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     scrollView: {
         width: '100%',
         height: '100%',
+        marginTop: 15,
     },
     swiperBox: {
         width: '100%',
@@ -51,6 +52,30 @@ const styles = StyleSheet.create({
     image: {
         width: wp(90),
         height: hp(36),
+    },
+    center: {
+        marginRight: 'auto',
+        marginLeft: 'auto',
+    },
+
+    data: {
+        marginBottom: 20,
+        paddingBottom: 20,
+        width: wp(94),
+        backgroundColor: '#fff',
+    },
+    dataImageBox: {
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        overflow: 'hidden',
+        width: wp(88),
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    dataImage: {
+        marginTop: 20,
+        marginBottom: 20,
+        width: wp(88),
     },
 });
 
