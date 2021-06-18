@@ -1,11 +1,11 @@
 import { RouteProp } from '@react-navigation/native';
-import React, { Component, ReactElement } from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
     // ScrollView,
     Image,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     FlatList,
     ActivityIndicator,
 } from 'react-native';
@@ -90,9 +90,9 @@ export default class Detail extends Component<IProps> {
         navigation.navigate('Play', { id });
     }
 
-    renderItem({ item }: { item: Song }): ReactElement {
+    renderItem({ item }: { item: Song }) {
         return (
-            <TouchableWithoutFeedback
+            <TouchableOpacity
                 onPress={() => this.handleClickSong(item.songId)}
                 key={item.songId}>
                 <View style={[styles.songItem]}>
@@ -109,7 +109,7 @@ export default class Detail extends Component<IProps> {
                         </Text>
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
         );
     }
 

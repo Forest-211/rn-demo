@@ -80,7 +80,6 @@ export default class Home extends Component<IProps> {
             // focus,
         } = result.data.response;
 
-        console.log(recomPlaylist);
         recomPlaylist.data.v_hot.map((item: recomItem) => {
             item.cover = replaceAgreement(item.cover);
         });
