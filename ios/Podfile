@@ -26,4 +26,8 @@ target 'musicQQ' do
   post_install do |installer|
     react_native_post_install(installer)
   end
+
+  `pod 'react-native-video/VideoCaching', :path => '../node_modules/react-native-video/react-native-video.podspec'`
+end
+
 end

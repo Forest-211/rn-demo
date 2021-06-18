@@ -46,6 +46,7 @@ function formatNumber(total: number): string {
     }
     return `${total}`;
 }
+
 export {
     viewportWidth,
     viewportHeight,
