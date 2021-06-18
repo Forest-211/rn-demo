@@ -15,7 +15,16 @@ async function getMvByTag() {
                 : mvlist[0].picurl),
     );
     return mvlist;
-    // console.log('result:', mvlist);
 }
 
-export { getMvByTag };
+/**
+ * @description 获取MV播放信息
+ * @param { vid: string } mv的id
+ * @returns 返回当前的mv信息
+ */
+async function getMvPlay(vid: string) {
+    const result = await http.get(`/getMvPlay?vid=${vid}`);
+    return result;
+}
+
+export { getMvByTag, getMvPlay };

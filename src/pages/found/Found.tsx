@@ -4,11 +4,16 @@ import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { MVItem } from '../../types/mv';
 import styles from '../../assets/styles/found';
 import { formatNumber } from '../../utils/index';
+import { RootStackNavigation } from '../../navigator/index';
 
 interface IState {
     mvlist: MVItem[];
 }
-export default class Found extends Component {
+
+interface IProps {
+    navigation: RootStackNavigation;
+}
+export default class Found extends Component<IProps> {
     state: IState = {
         mvlist: [],
     };
@@ -25,7 +30,8 @@ export default class Found extends Component {
 
     // 进入播放详情页
     handleClickItem(id: string) {
-        console.log('id', id);
+        const { navigation } = this.props;
+        navigation.navigate('MVPlay', { vid: id });
     }
 
     render() {

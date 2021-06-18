@@ -13,6 +13,7 @@ import Detail from '../pages/detail/Detail';
 import Login from '../pages/login/Login';
 import Search from '../pages/search/Search';
 import Play from '../pages/play/Play';
+import MVPlay from '../pages/mv-play/MVPlay';
 
 export type RootStackParamList = {
     BottomTabs: undefined;
@@ -26,6 +27,9 @@ export type RootStackParamList = {
     Search: undefined;
     Play: {
         id: number;
+    };
+    MVPlay: {
+        vid: string;
     };
 };
 
@@ -76,6 +80,11 @@ export default class Navigator extends Component {
                         name="Play"
                         component={Play}
                         options={{ headerTitle: '歌曲' }}
+                    />
+                    <Stack.Screen
+                        name="MVPlay"
+                        component={MVPlay}
+                        options={{ headerTitle: 'mv' }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

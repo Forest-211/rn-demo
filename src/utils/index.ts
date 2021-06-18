@@ -38,7 +38,13 @@ function replaceAgreement(link: string): string {
  * @returns 返回一个字符串 eg： 1.2w
  */
 function formatNumber(total: number): string {
-    return `${Math.round(total / 10000).toFixed(1)}w`;
+    if (total > 10000) {
+        return `${(total / 10000).toFixed(1)}w`;
+    }
+    if (total > 1000) {
+        return `${(total / 1000).toFixed(1)}k`;
+    }
+    return `${total}`;
 }
 export {
     viewportWidth,
