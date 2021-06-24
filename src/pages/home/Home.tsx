@@ -16,6 +16,7 @@ import styles from '../../assets/styles/home';
 import { RootStackNavigation } from '../../navigator/index';
 import { Banner } from '../../types/album';
 import { getDigitalAlbumLists } from '../../service/album';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface IProps {
     navigation: RootStackNavigation;
@@ -124,6 +125,7 @@ export default class Home extends Component<IProps> {
         const { recommend, swiper } = this.state;
         return (
             <View style={[styles.container]}>
+                <Icon name="rocket" size={30} color="#900" />
                 {/* 搜索框导航 */}
                 <Text
                     style={[styles.sesarchBox]}

@@ -10,6 +10,7 @@ import Home from '../pages/home/Home';
 import List from '../pages/list/List';
 import Found from '../pages/found/Found';
 import Me from '../pages/me/Me';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export type BottomTabParamList = {
     Home: undefined;
@@ -60,7 +61,36 @@ export default class BottomTabs extends Component<IProps> {
             <Tab.Navigator
                 tabBarOptions={{
                     activeTintColor: '#f86442', // 修改tabbar激活颜色
-                }}>
+                }}
+                screenOptions={({ route }) => ({
+                    tabBarIcon: ({ focused, color, size }) => {
+                        let iconName = '';
+                        switch (route.name) {
+                            case 'Home':
+                                iconName = 'home';
+                                break;
+                            case 'List':
+                                iconName = 'reorder';
+                                break;
+                            case 'Found':
+                                iconName = 'rocket';
+                                break;
+                            case 'Me':
+                                iconName = 'user-o';
+                                break;
+
+                            default:
+                                break;
+                        }
+                        return (
+                            <Icon
+                                name={iconName}
+                                color={focused ? 'red' : '#ccc'}
+                                size={size}
+                            />
+                        );
+                    },
+                })}>
                 <Tab.Screen
                     name="Home"
                     component={Home}
