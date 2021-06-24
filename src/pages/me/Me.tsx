@@ -1,69 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { RootStackNavigation } from '../../navigator/index';
-
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#ddd',
-    },
-    userinfo: {
-        width: '96%',
-        flexDirection: 'column',
-        backgroundColor: '#fff',
-        height: 80,
-        marginTop: 20,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    info: {
-        flexDirection: 'row',
-    },
-    avatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 50,
-        overflow: 'hidden',
-        marginTop: -10,
-        marginLeft: 10,
-        marginRight: 10,
-    },
-    avatarImage: {
-        width: 40,
-        height: 40,
-    },
-    nickname: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#333',
-        marginTop: 8,
-    },
-    items: {
-        marginLeft: 15,
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-    },
-    item: {
-        fontSize: 14,
-        fontWeight: '500',
-        color: '#333',
-    },
-    num: {
-        fontSize: 12,
-        fontWeight: '200',
-    },
-    line: {
-        width: 1,
-        height: 14,
-        backgroundColor: '#ccc',
-        opacity: 0.6,
-        marginLeft: 15,
-        marginRight: 15,
-    },
-});
+import styles from '../../assets/styles/me';
+import { Button } from '@ant-design/react-native';
 
 interface IState {
     nickname: string;
@@ -87,6 +26,12 @@ export default class Me extends Component<IProps> {
         console.log(this.props);
         navigation.navigate('Login');
     }
+
+    handleClickJump() {
+        const { navigation } = this.props;
+        navigation.navigate('CustomTitleBar');
+    }
+
     render() {
         const { nickname } = this.state;
         return (
@@ -122,6 +67,22 @@ export default class Me extends Component<IProps> {
                         </Text>
                     </View>
                 </View>
+
+                <Button
+                    style={[styles.custom]}
+                    onPress={() => this.handleClickJump()}>
+                    自定义头部样式呀
+                </Button>
+                <Button
+                    style={[styles.custom]}
+                    onPress={() => this.props.navigation.navigate('Drawer')}>
+                    抽屉导航
+                </Button>
+                <Button
+                    style={[styles.custom]}
+                    onPress={() => this.props.navigation.navigate('TopTab')}>
+                    top tab switch
+                </Button>
             </View>
         );
     }

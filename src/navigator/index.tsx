@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
     createStackNavigator,
+    // HeaderBackButton,
     StackNavigationProp,
 } from '@react-navigation/stack';
 import Found from '../pages/found/Found';
@@ -14,6 +15,12 @@ import Login from '../pages/login/Login';
 import Search from '../pages/search/Search';
 import Play from '../pages/play/Play';
 import MVPlay from '../pages/mv-play/MVPlay';
+import CustomTitleBar from '../pages/custom-title-bar/CustomTitleBar';
+import CustomHeader from '../components/CustomHeader';
+import { Button } from '@ant-design/react-native';
+import { Alert, Image } from 'react-native';
+import Drawer from '../pages/drawer/Drawer';
+import TopTab from '../pages/top-tab/TopTab';
 
 export type RootStackParamList = {
     BottomTabs: undefined;
@@ -31,6 +38,9 @@ export type RootStackParamList = {
     MVPlay: {
         vid: string;
     };
+    CustomTitleBar: undefined;
+    Drawer: undefined;
+    TopTab: undefined;
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
@@ -44,7 +54,17 @@ export default class Navigator extends Component {
                     <Stack.Screen
                         name="BottomTabs"
                         component={BottomTabs}
-                        options={{ headerTitle: '首页' }}
+                        options={{
+                            headerTitle: '首页',
+                            headerStyle: {
+                                backgroundColor: 'red',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                                fontSize: 30,
+                            },
+                        }}
                     />
                     <Stack.Screen
                         name="List"
@@ -85,6 +105,44 @@ export default class Navigator extends Component {
                         name="MVPlay"
                         component={MVPlay}
                         options={{ headerTitle: 'mv' }}
+                    />
+                    <Stack.Screen
+                        name="Drawer"
+                        component={Drawer}
+                        options={{ headerTitle: '抽屉导航' }}
+                    />
+                    <Stack.Screen
+                        name="TopTab"
+                        component={TopTab}
+                        options={{ headerTitle: '顶部导航' }}
+                    />
+                    <Stack.Screen
+                        name="CustomTitleBar"
+                        component={CustomTitleBar}
+                        options={{
+                            headerTitle: (props) => <CustomHeader {...props} />,
+                            // headerBackTitleVisible: false,
+                            headerBackTitle: '1234',
+                            headerRight: () => (
+                                <Button onPress={() => Alert.alert('right')}>
+                                    right
+                                </Button>
+                            ),
+                            headerBackImage: () => (
+                                <Image
+                                    source={{
+                                        uri: 'https://qpic.y.qq.com/music_cover/DhpicvGxCZozibtVUC0Q03Oia0h9DnKUNHPdPL3oD2tqUJiaYJUv1jvlEXbPvCCy4Vql/300?n=1',
+                                    }}
+                                    style={[
+                                        {
+                                            width: 60,
+                                            height: 60,
+                                            marginRight: 20,
+                                        },
+                                    ]}
+                                />
+                            ),
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
