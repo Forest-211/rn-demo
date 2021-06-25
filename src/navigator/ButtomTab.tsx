@@ -63,7 +63,7 @@ export default class BottomTabs extends Component<IProps> {
                     activeTintColor: '#f86442', // 修改tabbar激活颜色
                 }}
                 screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused, color, size }) => {
+                    tabBarIcon: ({ focused, size }) => {
                         let iconName = '';
                         switch (route.name) {
                             case 'Home':
