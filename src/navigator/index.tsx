@@ -21,6 +21,8 @@ import { Button } from '@ant-design/react-native';
 import { Alert, Image } from 'react-native';
 import Drawer from '../pages/drawer/Drawer';
 import TopTab from '../pages/top-tab/TopTab';
+import CustomBottonTab from '../pages/custom-botton-tab/CustomBottonTab';
+import SetStatus from '../pages/set-status/SetStatus';
 
 export type RootStackParamList = {
     BottomTabs: undefined;
@@ -41,6 +43,8 @@ export type RootStackParamList = {
     CustomTitleBar: undefined;
     Drawer: undefined;
     TopTab: undefined;
+    CustomBottonTab: undefined;
+    SetStatus: undefined;
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
@@ -117,6 +121,11 @@ export default class Navigator extends Component {
                         options={{ headerTitle: '顶部导航' }}
                     />
                     <Stack.Screen
+                        name="CustomBottonTab"
+                        component={CustomBottonTab}
+                        options={{ headerTitle: '自定义底部标签' }}
+                    />
+                    <Stack.Screen
                         name="CustomTitleBar"
                         component={CustomTitleBar}
                         options={{
@@ -142,6 +151,13 @@ export default class Navigator extends Component {
                                     ]}
                                 />
                             ),
+                        }}
+                    />
+                    <Stack.Screen
+                        name="SetStatus"
+                        component={SetStatus}
+                        options={{
+                            headerTitle: 'set status',
                         }}
                     />
                 </Stack.Navigator>

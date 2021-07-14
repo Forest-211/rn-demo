@@ -30,6 +30,7 @@ export default class TopTab extends Component<IProps> {
             // },
         });
     }
+
     componentDidUpdate() {
         console.log('route:', this.props.route);
     }

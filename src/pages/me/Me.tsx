@@ -83,6 +83,19 @@ export default class Me extends Component<IProps> {
                     onPress={() => this.props.navigation.navigate('TopTab')}>
                     top tab switch
                 </Button>
+                <Button
+                    style={[styles.custom]}
+                    onPress={() =>
+                        this.props.navigation.navigate('CustomBottonTab')
+                    }>
+                    custom botton tabbar
+                </Button>
+
+                <Button
+                    style={[styles.custom]}
+                    onPress={() => this.props.navigation.navigate('SetStatus')}>
+                    set status
+                </Button>
             </View>
         );
     }

@@ -19,6 +19,8 @@ export default class CustomTitleBar extends Component<IProps> {
     handleClickOpenOrClose() {
         const { navigation } = this.props;
         navigation.toggleDrawer();
+        // const { isOpen } = this.state;
+        // isOpen ? navigation.closeDrawer() : navigation.openDrawer();
     }
     render() {
         const { isOpen } = this.state;
